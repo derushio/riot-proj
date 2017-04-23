@@ -4,7 +4,7 @@
 プロジェクトフォルダを任意の場所へコピー
 
 ```bash
-$ npm install
+$ ./install.sh
 ```
 
 準備完了！
