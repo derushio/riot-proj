@@ -1,4 +1,4 @@
-let fs = require('fs');
+const fs = require('fs');
 
 var json = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 

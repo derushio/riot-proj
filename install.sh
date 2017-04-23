@@ -9,4 +9,4 @@ npm install --save-dev babelify
 npm install --save-dev babel-preset-es2015
 npm install --save-dev node-sass
 
-node install-npm-scripit.js
+node ./install-npm-script.js
