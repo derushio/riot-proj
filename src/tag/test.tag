@@ -1,5 +1,5 @@
 <test>
-    <style type="scss">
+    <style type='scss'>
         $mainColor: blue;
         p {
             color: $mainColor;
