@@ -75,8 +75,6 @@ exec('rm -rf ./dist/').then(() => {
 }).then(() => {
     return exec('npm run build-babel');
 }).then(() => {
-    return exec('find ./dist/script -type d -name lib -prune -o -type f -name bundle.js -prune -o -type f -print | xargs rm');
-}).then(() => {
     console.log('babel build done.');
 }).then(() => {
     return exec('node ./tool/build/build_scss.js');
