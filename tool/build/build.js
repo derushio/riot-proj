@@ -87,5 +87,5 @@ exec('rm -rf ./dist/').then(() => {
 }).then(() => {
     console.log('project build done.');
 }).catch((e) => {
-    console.log(e);
+    console.log(e.stderr);
 });
