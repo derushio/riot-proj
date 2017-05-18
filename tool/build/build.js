@@ -4,8 +4,12 @@ var sass = require('node-sass');
 var child_process = require('child_process');
 var exec = (command) => {
     return new Promise((resolve, reject) => {
-        child_process.exec(command, () => {
-            resolve();
+        child_process.exec(command, (error, stdout, stderr) => {
+            if (error || stderr) {
+                var e = { error: error, stderr: stderr }
+                reject(e);
+            }
+            resolve(stdout);
         });
     });
 };
@@ -82,4 +86,6 @@ exec('rm -rf ./dist/').then(() => {
     console.log('scss build done.');
 }).then(() => {
     console.log('project build done.');
+}).catch((e) => {
+    console.log(e);
 });
