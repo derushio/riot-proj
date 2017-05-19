@@ -1,3 +1,5 @@
+import riot from "riot";
+
 <test>
     <style type='scss'>
         $mainColor: blue;

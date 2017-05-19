@@ -41,8 +41,8 @@ function readdir(path) {
                     var code = fs.readFileSync(filepath, 'utf-8');
                     var js = riot.compile(code);
 
-                    exec('mkdir -p ' + './dist/script/' + path.replace('./src/', '')).then(() => {
-                        fs.writeFile('./dist/script/' + path.replace('./src/', '') + filename + '.js', js, () => {
+                    exec('mkdir -p ' + './src/script/' + path.replace('./src/', '')).then(() => {
+                        fs.writeFile('./src/script/' + path.replace('./src/', '') + filename + '.js', js, () => {
                             resolve();
                         });
                     });
@@ -57,21 +57,9 @@ function readdir(path) {
 var path = './src/tag/';
 
 exec('rm -rf ./dist/').then(() => {
-    return exec('mkdir -p ./dist/script/lib/riot/');
+    return exec('rsync -a ./src/ ./dist/ --exclude "/script/" --exclude "/style/" --exclude "/tag/"');
 }).then(() => {
-    return exec('cp ./node_modules/riot/riot.min.js ./dist/script/lib/riot/riot.min.js');
-}).then(() => {
-    return exec('mkdir -p ./dist/script/lib/jquery/');
-}).then(() => {
-    return exec('cp ./node_modules/jquery/dist/jquery.min.js ./dist/script/lib/jquery/jquery.min.js');
-}).then(() => {
-    return exec('mkdir -p ./dist/script/lib/');
-}).then(() => {
-    return exec('cp -R ./src/script/lib/* ./dist/script/lib/');
-}).then(() => {
-    return exec('rsync -a ./src/ ./dist/ --exclude "/tag/" --exclude "/style/"');
-}).then(() => {
-    return exec('mkdir -p ./dist/script/tag/');
+    return exec('mkdir -p ./src/script/tag/');
 }).then(() => {
     return readdir(path);
 }).then(() => {

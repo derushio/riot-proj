@@ -1,6 +1,13 @@
 #! /bin/bash
 
-find ./dist/script/tag/* -type f -name "*.js" -print | xargs -I{} browserify -o ./dist/script/tag/tag.js -t [ babelify --presets [ es2015 es2016 ] ] {}
-find ./dist/script/entry/* -type f -name "*.js" -print | xargs -I{} browserify -o {} -t [ babelify --presets [ es2015 es2016 ] ] {}
-find ./dist/script/* \( -name lib -o -name entry -o -name tag.js \) -prune -o -type f -print | xargs rm -f
-find ./dist/script/* \( -name lib -o -name entry -o -name tag \) -prune -o -type d -print | xargs rm -rf
+entryDirs=(`find ./src/script/entry/ -type d -name "*" -print`)
+for entryDir in ${entryDirs[@]}; do
+    entryDirPath=`echo $entryDir | cut -c "7-${#entryDir}"`
+    mkdir -p "./dist/$entryDirPath"
+done
+
+entrys=(`find ./src/script/entry/* -type f -name "*.js" -print`)
+for entry in ${entrys[@]}; do
+    entryPath=`echo $entry | cut -c "7-${#entry}"`
+    browserify -o "./dist/$entryPath" -t [ babelify --presets [ es2015 es2016 ] ] $entry
+done
